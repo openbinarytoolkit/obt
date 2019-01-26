@@ -30,6 +30,6 @@
 *.exe
 *.out
 *.app
-odb
+obt
 
 dependencies
