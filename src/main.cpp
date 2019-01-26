@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <io.hpp>
+#include <elf.hpp>
 
 using namespace std;
 
@@ -18,6 +19,10 @@ int main(int argc, char**argv)
 		}
 		cout << endl << "------ " << endl;
 		cout << "Size: " << buffer.bytes()->size() << " bytes" << endl;
+
+		ELFFile64 elf(buffer);
+		
+		
 	}
 	else
 	{

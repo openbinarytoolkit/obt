@@ -1,5 +1,6 @@
 #include <io.hpp>
 #include <fstream>
+#include <cstring>
 
 using namespace std;
 
@@ -31,4 +32,21 @@ BinaryBuffer BinaryBuffer::new_from_file(string filename)
 vector<byte> *BinaryBuffer::bytes(void)
 {
 	return buffer;
+}
+
+BinaryBuffer BinaryBuffer::slice(size_t start, size_t len)
+{
+	BinaryBuffer ret(len);
+	memcpy(ret.bytes()->data(), bytes()->data() + start, len);
+	return ret;
+}
+
+string BinaryBuffer::get_string_at_offset(size_t offset)
+{
+	string ret("");
+	for(size_t i = offset; bytes()->at(i) != 0; i++)
+	{
+		ret += bytes()->at(i);
+	}
+	return ret;
 }
