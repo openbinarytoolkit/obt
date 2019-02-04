@@ -1,10 +1,12 @@
 #include <hex.hpp>
-#include <io.hpp>
+#include <vector>
 #include <iostream>
+
+using namespace std;
 
 HexFormater::HexFormater(){
   block_size = 1;
-  use_capital_letters = true;
+  set_use_capital_letters(true);
 }
 
 int HexFormater::get_block_size(){
@@ -21,9 +23,12 @@ bool HexFormater::get_use_capital_letters(){
 
 void HexFormater::set_use_capital_letters(bool use_capital_letters){
   this->use_capital_letters = use_capital_letters;
+  offset = 7;
+  if(!use_capital_letters)
+    offset += 32;
 }
 
-string HexFormater::format_byte(byte data, char offset){
+string HexFormater::to_hex(byte data){
   string s = "";
   unsigned char tmp = (unsigned char) (data >> 4) % 16;
 
@@ -42,17 +47,40 @@ string HexFormater::format_byte(byte data, char offset){
   return s;
 }
 
-string HexFormater::format(BinaryBuffer *data){
+string HexFormater::to_hex(BinaryBuffer *data){
   string s = "";
-  char offset = 7;
-  if(!use_capital_letters)
-    offset += 32;
   vector<byte> *buffer = data->bytes();
   for(unsigned int i=0; i<buffer->size(); i++){
-    s += format_byte(buffer->at(i), offset);
+    s += to_hex(buffer->at(i));
     if (i%1==0)
       s+= " ";
   }
 
   return s;
+}
+
+byte HexFormater::hex_to_byte(string hex){
+  vector<char> data(hex.begin(), hex.end());
+  byte tmp, b;
+
+  if(data.size() < 2){
+    cout << "String to short!" << endl;
+    return 0;
+  }
+
+  tmp = data.at(0) - 48;
+  if(tmp >= 49)
+    tmp -= 39;
+  else if (tmp >= 17)
+    tmp -= 7;
+  b = tmp << 4;
+
+  tmp = data.at(1) - 48;
+  if(tmp >= 49)
+    tmp -= 39;
+  else if (tmp >= 17)
+    tmp -= 7;
+  b += tmp;
+
+  return b;
 }

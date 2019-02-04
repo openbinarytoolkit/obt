@@ -10,6 +10,7 @@ class HexFormater {
 private:
   int block_size;
   bool use_capital_letters;
+  char offset;
 
 public:
   HexFormater();
@@ -22,8 +23,11 @@ public:
   void set_use_capital_letters(bool capital_letters);
 
   // Functions
-  string format_byte(byte data, char offset);
-  string format(BinaryBuffer *data);
+  string to_hex(byte data);
+  string to_hex(BinaryBuffer *data);
+
+  // static
+  static byte hex_to_byte(string s);
 };
 
 #endif
