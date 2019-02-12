@@ -8,10 +8,6 @@ BinaryBuffer::BinaryBuffer(size_t size)
 	buffer = new vector<byte>(size);
 }
 
-BinaryBuffer::BinaryBuffer(vector<byte> *buffer){
-	this->buffer = buffer;
-}
-
 BinaryBuffer::~BinaryBuffer()
 {
 	delete buffer;
