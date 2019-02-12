@@ -16,6 +16,7 @@ private:
 
 public:
 	BinaryBuffer(size_t size);
+	BinaryBuffer(vector<byte> *buffer);
 	~BinaryBuffer();
 
 	static BinaryBuffer new_from_file(string filename);

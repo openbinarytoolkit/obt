@@ -1,6 +1,7 @@
 #include <hex.hpp>
 #include <vector>
 #include <iostream>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -63,8 +64,8 @@ byte HexFormater::hex_to_byte(string hex){
   vector<char> data(hex.begin(), hex.end());
   byte tmp, b;
 
-  if(data.size() < 2){
-    cout << "String to short!" << endl;
+  if(data.size() != 2){
+    cout << "String does not contain two hex characters!" << endl;
     return 0;
   }
 
@@ -83,4 +84,19 @@ byte HexFormater::hex_to_byte(string hex){
   b += tmp;
 
   return b;
+}
+
+BinaryBuffer *HexFormater::hex_to_bytes(string hex){
+  char c = ' ';
+  hex.erase(remove(hex.begin(), hex.end(), c), hex.end());
+  if(hex.length() % 2 != 0){
+    cout << "String does not contain an even number of hex characters!" << endl;
+    return NULL;
+  }
+
+  vector<byte> *buffer = new vector<byte>;
+  for(unsigned int i=0; 2*i<hex.length(); i++){
+    buffer->push_back(hex_to_byte(hex.substr(2*i, 2)));
+  }
+  return new BinaryBuffer(buffer);
 }

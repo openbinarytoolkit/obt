@@ -28,6 +28,7 @@ public:
 
   // static
   static byte hex_to_byte(string s);
+  static BinaryBuffer *hex_to_bytes(string s);
 };
 
 #endif

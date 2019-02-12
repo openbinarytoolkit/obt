@@ -19,7 +19,17 @@ int main(int argc, char**argv)
 		}
 		cout << endl << "------ " << endl;
 		cout << "Size: " << buffer.bytes()->size() << " bytes" << endl;
-		cout << (int) HexFormater::hex_to_byte(hf->to_hex(buffer.bytes()->at(0))) << " " << (int) buffer.bytes()->at(0) << endl;
+
+		BinaryBuffer *buffer2 = HexFormater::hex_to_bytes("FF 00 0F 80");
+
+		for(int x = 0; x < 4; x++)
+		{
+			cout << (int)buffer2->bytes()->at(x) << " ";
+		}
+		cout << endl;
+
+		delete hf;
+		delete buffer2;
 	}
 	else
 	{
