@@ -1,7 +1,10 @@
 #include <iostream>
 
 #include <io.hpp>
+
+#include <elf.hpp>
 #include <hex.hpp>
+
 
 using namespace std;
 
@@ -20,6 +23,7 @@ int main(int argc, char**argv)
 		cout << endl << "------ " << endl;
 		cout << "Size: " << buffer.bytes()->size() << " bytes" << endl;
 
+		ELFFile64 elf(buffer);
 		BinaryBuffer *buffer2 = HexFormater::hex_to_bytes("FF 00 0F 80");
 
 		for(int x = 0; x < 4; x++)
