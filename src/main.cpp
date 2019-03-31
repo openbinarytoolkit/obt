@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include <io.hpp>
 
 #include <elf.hpp>
@@ -23,17 +22,15 @@ int main(int argc, char**argv)
 		cout << endl << "------ " << endl;
 		cout << "Size: " << buffer.bytes()->size() << " bytes" << endl;
 
-		ELFFile64 elf(buffer);
-		BinaryBuffer *buffer2 = HexFormater::hex_to_bytes("FF 00 0F 80");
+		ELFFile64 elf(&buffer);
 
-		for(int x = 0; x < 4; x++)
-		{
-			cout << (int)buffer2->bytes()->at(x) << " ";
-		}
-		cout << endl;
+		cout << elf.get_elf_header().e_shstrndx << endl;
+
+		//BinaryBuffer buffer2 = elf.get_section(14/*elf.get_elf_header().e_shstrndx*/).data;
+		//cout << hf->to_hex(&buffer2) << endl;
+
 
 		delete hf;
-		delete buffer2;
 	}
 	else
 	{
