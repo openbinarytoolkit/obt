@@ -64,16 +64,21 @@ ELFFile64::ELFFile64(BinaryBuffer *buffer)
 	{
 		// Get sector number i
 		Section *section = new Section();
+		// Get secion header
 		memcpy(section->get_header_address(), buffer->bytes()->data() + elf_header.e_shoff + i * elf_header.e_shentsize, sizeof(Elf64_Shdr));
+		// Get section data
 		section->set_data_address(new BinaryBuffer(section->get_header().sh_size));
 		memcpy(section->get_data_address()->bytes()->data(), buffer->bytes()->data() + section->get_header().sh_offset, section->get_header().sh_size);
+		// Get section name
+		// name = (offset to the name section in the file image) + (offset to the name of sector number i in the name section)
 		section->set_name(buffer->get_string_at_offset(name_section_header.sh_offset + section->get_header().sh_name));
+
+		// Add section to vection
 		sections.push_back(section);
 
 
-		// name = (offset to the name section in the file image) + (offset to the name of sector number i in the name section)
-		cout << "Section " << i << " Name at: " << (name_section_header.sh_offset + section->get_header().sh_name) << endl;
-		cout << section->get_name() << endl;
+		//cout << "Section " << i << " Name at: " << (name_section_header.sh_offset + section->get_header().sh_name) << endl;
+		//cout << section->get_name() << endl;
 	}
 }
 
