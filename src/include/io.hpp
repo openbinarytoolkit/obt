@@ -15,8 +15,7 @@ private:
 	vector<byte> *buffer;
 
 public:
-	BinaryBuffer() : BinaryBuffer(0) {}
-	BinaryBuffer(size_t size);
+	BinaryBuffer(size_t size = 0);
 	BinaryBuffer(vector<byte> *buffer);
 	~BinaryBuffer();
 
